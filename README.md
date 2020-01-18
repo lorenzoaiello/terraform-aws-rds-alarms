@@ -44,9 +44,11 @@ resource "aws_db_instance" "default" {
 }
 
 module "aws-rds-alarms" {
-  source            = "lorenzoaiello/aws-rds-alarms"
+  source            = "lorenzoaiello/rds-alarms/aws"
+  version           = "x.y.z"
   db_instance_id    = aws_db_instance.default.id
 }
+
 ```
 
 ## Variables
