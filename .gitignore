@@ -1,3 +1,6 @@
+# Local dev things
+.idea
+
 # Local .terraform directories
 **/.terraform/*
 
