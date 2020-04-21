@@ -28,13 +28,13 @@ variable "anomaly_period" {
 }
 
 variable "actions_alarm" {
-  type        = "list"
+  type        = list
   default     = []
   description = "A list of actions to take when alarms are triggered. Will likely be an SNS topic for event distribution."
 }
 
 variable "actions_ok" {
-  type        = "list"
+  type        = list
   default     = []
   description = "A list of actions to take when alarms are cleared. Will likely be an SNS topic for event distribution."
 }
