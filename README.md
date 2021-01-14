@@ -62,6 +62,7 @@ module "aws-rds-alarms" {
 | evaluation\_period | The evaluation period over which to use when triggering alarms. | `string` | `"5"` | no |
 | prefix | Alarm Name Prefix | `string` | `""` | no |
 | statistic\_period | The number of seconds that make each statistic period. | `string` | `"60"` | no |
+| tags | Tags to attach to each alarm | `map(string)` | `{}` | no |
 
 ## Outputs
 

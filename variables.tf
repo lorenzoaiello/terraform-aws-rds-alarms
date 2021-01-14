@@ -81,3 +81,8 @@ variable "memory_swap_usage_too_high_threshold" {
   description = "Alarm threshold for the 'highSwapUsage' alarm"
 }
 
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Tags to attach to each alarm"
+}

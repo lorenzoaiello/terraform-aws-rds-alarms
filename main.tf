@@ -21,6 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization_too_high" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu_credit_balance_too_low" {
@@ -40,6 +41,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_credit_balance_too_low" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 // Disk Utilization
@@ -59,6 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "disk_queue_depth_too_high" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "disk_free_storage_space_too_low" {
@@ -77,6 +80,7 @@ resource "aws_cloudwatch_metric_alarm" "disk_free_storage_space_too_low" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "disk_burst_balance_too_low" {
@@ -95,6 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "disk_burst_balance_too_low" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 // Memory Utilization
@@ -114,6 +119,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_freeable_too_low" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "memory_swap_usage_too_high" {
@@ -132,6 +138,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_swap_usage_too_high" {
   dimensions = {
     DBInstanceIdentifier = var.db_instance_id
   }
+  tags = var.tags
 }
 
 // Connection Count
@@ -166,5 +173,6 @@ resource "aws_cloudwatch_metric_alarm" "connection_count_anomalous" {
       }
     }
   }
+  tags = var.tags
 }
 
