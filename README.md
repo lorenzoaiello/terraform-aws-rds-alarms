@@ -63,6 +63,7 @@ module "aws-rds-alarms" {
 | prefix | Alarm Name Prefix | `string` | `""` | no |
 | statistic\_period | The number of seconds that make each statistic period. | `string` | `"60"` | no |
 | tags | Tags to attach to each alarm | `map(string)` | `{}` | no |
+| db_instance_class | The rds instance-class, e.g. `db.t3.medium` | `string` |  | yes |
 
 ## Outputs
 

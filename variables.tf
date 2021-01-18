@@ -86,3 +86,8 @@ variable "tags" {
   default     = {}
   description = "Tags to attach to each alarm"
 }
+
+variable "db_instance_class" {
+  type      = string
+  description = "The rds instance class, e.g. db.t3.medium"
+}
