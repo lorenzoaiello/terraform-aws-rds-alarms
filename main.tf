@@ -147,7 +147,7 @@ resource "aws_cloudwatch_metric_alarm" "connection_count_anomalous" {
 
   metric_query {
     id          = "e1"
-    expression  = "ANOMALY_DETECTION_BAND(m1)"
+    expression  = "ANOMALY_DETECTION_BAND(m1, ${var.anomaly_band_width})"
     label       = "DatabaseConnections (Expected)"
     return_data = "true"
   }
