@@ -58,12 +58,20 @@ module "aws-rds-alarms" {
 | actions\_alarm | A list of actions to take when alarms are triggered. Will likely be an SNS topic for event distribution. | `list` | `[]` | no |
 | actions\_ok | A list of actions to take when alarms are cleared. Will likely be an SNS topic for event distribution. | `list` | `[]` | no |
 | anomaly\_period | The number of seconds that make each evaluation period for anomaly detection. | `string` | `"600"` | no |
+| anomaly_band_width | The width of the anomaly band detection.  Higher numbers means less sensitive | `string` | `"2"` | no |
 | db\_instance\_id | RDS Instance ID | `string` | n/a | yes |
 | evaluation\_period | The evaluation period over which to use when triggering alarms. | `string` | `"5"` | no |
 | prefix | Alarm Name Prefix | `string` | `""` | no |
 | statistic\_period | The number of seconds that make each statistic period. | `string` | `"60"` | no |
 | tags | Tags to attach to each alarm | `map(string)` | `{}` | no |
 | db_instance_class | The rds instance-class, e.g. `db.t3.medium` | `string` |  | yes |
+| cpu_utilization_too_high_threshold | Alarm threshold for the 'highCPUUtilization' alarm | `string` | `"90"` | no |
+| cpu_credit_balance_too_low_threshold | Alarm threshold for the 'lowCPUCreditBalance' alarm | `string` | `"100"` | no |
+| disk_queue_depth_too_high_threshold | Alarm threshold for the 'highDiskQueueDepth' alarm | `string` | `"64"` | no |
+| disk_free_storage_space_too_low_threshold | Alarm threshold for the 'lowFreeStorageSpace' alarm (in bytes) | `string` | `"10000000000"` | no |
+| disk_burst_balance_too_low_threshold | Alarm threshold for the 'lowEBSBurstBalance' alarm | `string` | `"100"` | no |
+| memory_freeable_too_low_threshold | Alarm threshold for the 'lowFreeableMemory' alarm (in bytes) | `string` | `"256000000"` | no |
+| memory_swap_usage_too_high_threshold | Alarm threshold for the 'highSwapUsage' alarm (in bytes) | `string` | `"256000000"` | no |
 
 ## Outputs
 
