@@ -2,7 +2,10 @@ variable "db_instance_id" {
   type        = string
   description = "RDS Instance ID"
 }
-
+variable "environment_enabled"{
+  type		=bool
+  description   ="A true/false for whether the alarms are created in the desired environment"
+}
 variable "prefix" {
   type        = string
   default     = ""
