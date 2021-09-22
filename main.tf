@@ -170,3 +170,19 @@ resource "aws_cloudwatch_metric_alarm" "connection_count_anomalous" {
   tags = var.tags
 }
 
+// [postgres, aurora-postgres] Early Warning System for Transaction ID Wraparound
+// more info - https://aws.amazon.com/blogs/database/implement-an-early-warning-system-for-transaction-id-wraparound-in-amazon-rds-for-postgresql/
+resource "aws_cloudwatch_metric_alarm" "maximum_used_transaction_ids_too_high" {
+  count               = contains(["aurora-postgresql", "postgres"], var.engine) ? 1 : 0
+  alarm_name          = "${var.prefix}rds-${var.db_instance_id}-maximumUsedTransactionIDs"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.evaluation_period
+  metric_name         = "MaximumUsedTransactionIDs"
+  namespace           = "AWS/RDS"
+  period              = var.statistic_period
+  statistic           = "Average"
+  threshold           = var.maximum_used_transaction_ids_too_high_threshold
+  alarm_description   = "Nearing a possible critical transaction ID wraparound."
+  alarm_actions       = var.actions_alarm
+  ok_actions          = var.actions_ok
+}

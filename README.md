@@ -20,6 +20,9 @@ Alarms Always Created (default values can be overridden):
 If the instance type is a T-Series instance type (automatically determind), the following alarms are also created:
 - CPU Credit Balance below 100
 
+If the database engine is any of postgres type (configured with var.engine), then the following alarms are also created:
+- Maximum used transaction IDs over 1,000,000,000
+
 **Estimated Operating Cost**: $ 1.00 / month
 
 - $ 0.10 / month for Metric Alarms (7x)
@@ -60,6 +63,7 @@ module "aws-rds-alarms" {
 | anomaly\_period | The number of seconds that make each evaluation period for anomaly detection. | `string` | `"600"` | no |
 | anomaly_band_width | The width of the anomaly band detection.  Higher numbers means less sensitive | `string` | `"2"` | no |
 | db\_instance\_id | RDS Instance ID | `string` | n/a | yes |
+| engine | The RDS engine being used. Used for database engine specific alarms | `string` | `""` | no |
 | evaluation\_period | The evaluation period over which to use when triggering alarms. | `string` | `"5"` | no |
 | prefix | Alarm Name Prefix | `string` | `""` | no |
 | statistic\_period | The number of seconds that make each statistic period. | `string` | `"60"` | no |
@@ -70,6 +74,7 @@ module "aws-rds-alarms" {
 | disk_queue_depth_too_high_threshold | Alarm threshold for the 'highDiskQueueDepth' alarm | `string` | `"64"` | no |
 | disk_free_storage_space_too_low_threshold | Alarm threshold for the 'lowFreeStorageSpace' alarm (in bytes) | `string` | `"10000000000"` | no |
 | disk_burst_balance_too_low_threshold | Alarm threshold for the 'lowEBSBurstBalance' alarm | `string` | `"100"` | no |
+| maximum_used_transaction_ids_too_high_threshold | Alarm threshold for the 'maximumUsedTransactionIDs' alarm | `string` | `"1000000000"` | no |
 | memory_freeable_too_low_threshold | Alarm threshold for the 'lowFreeableMemory' alarm (in bytes) | `string` | `"256000000"` | no |
 | memory_swap_usage_too_high_threshold | Alarm threshold for the 'highSwapUsage' alarm (in bytes) | `string` | `"256000000"` | no |
 
@@ -85,3 +90,4 @@ module "aws-rds-alarms" {
 | alarm\_disk\_queue\_depth\_too\_high | The CloudWatch Metric Alarm resource block for high Disk Queue Depth |
 | alarm\_memory\_freeable\_too\_low | The CloudWatch Metric Alarm resource block for low Freeable Memory |
 | alarm\_memory\_swap\_usage\_too\_high | The CloudWatch Metric Alarm resource block for high Memory Swap Usage |
+| alarm_maximum_used_transaction_ids_too_high | The CloudWatch Metric Alarm resource block for postgres' Transaction ID Wraparound |
