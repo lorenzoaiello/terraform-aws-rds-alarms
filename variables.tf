@@ -21,6 +21,12 @@ variable "statistic_period" {
   description = "The number of seconds that make each statistic period."
 }
 
+variable "create_anomaly_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the fairly noisy anomaly alarm.  Default is to create it (for backwards compatible support)"
+}
+
 variable "anomaly_period" {
   type        = string
   default     = "600"

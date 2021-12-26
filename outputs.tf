@@ -34,6 +34,6 @@ output "alarm_memory_swap_usage_too_high" {
 }
 
 output "alarm_connection_count_anomalous" {
-  value       = aws_cloudwatch_metric_alarm.connection_count_anomalous
+  value       = aws_cloudwatch_metric_alarm.connection_count_anomalous.*
   description = "The CloudWatch Metric Alarm resource block for anomalous Connection Count"
 }

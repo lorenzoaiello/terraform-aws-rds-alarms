@@ -137,6 +137,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_swap_usage_too_high" {
 
 // Connection Count
 resource "aws_cloudwatch_metric_alarm" "connection_count_anomalous" {
+  count               = var.create_anomaly_alarm ? 1 : 0
   alarm_name          = "${var.prefix}rds-${var.db_instance_id}-anomalousConnectionCount"
   comparison_operator = "GreaterThanUpperThreshold"
   evaluation_periods  = var.evaluation_period
