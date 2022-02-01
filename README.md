@@ -72,6 +72,15 @@ module "aws-rds-alarms" {
 | disk_burst_balance_too_low_threshold | Alarm threshold for the 'lowEBSBurstBalance' alarm | `string` | `"100"` | no |
 | memory_freeable_too_low_threshold | Alarm threshold for the 'lowFreeableMemory' alarm (in bytes) | `string` | `"256000000"` | no |
 | memory_swap_usage_too_high_threshold | Alarm threshold for the 'highSwapUsage' alarm (in bytes) | `string` | `"256000000"` | no |
+| create_high_cpu_alarm | Whether or not to create the high cpu alarm | `bool` | `true` | no |
+| create_low_cpu_credit_alarm | Whether or not to create the low cpu credit alarm | `bool` | `true` | no |
+| create_high_queue_depth_alarm | Whether or not to create the high queue depth alarm | `bool` | `true` | no |
+| create_low_disk_space_alarm | Whether or not to create the low disk space alarm | `bool` | `true` | no |
+| create_low_disk_burst_alarm | Whether or not to create the low disk burst alarm | `bool` | `true` | no |
+| create_low_memory_alarm | Whether or not to create the low memory free alarm | `bool` | `true` | no |
+| create_swap_alarm | Whether or not to create the high swap usage alarm | `bool` | `true` | no |
+| create_anomaly_alarm | Whether or not to create the fairly noisy anomaly alarm | `bool` | `true` | no |
+
 
 ## Outputs
 

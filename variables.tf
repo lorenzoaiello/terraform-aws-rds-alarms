@@ -21,6 +21,54 @@ variable "statistic_period" {
   description = "The number of seconds that make each statistic period."
 }
 
+variable "create_high_cpu_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the high cpu alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_low_cpu_credit_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the low cpu credit alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_high_queue_depth_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the high queue depth alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_low_disk_space_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the low disk space alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_low_disk_burst_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the low disk burst alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_low_memory_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the low memory free alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_swap_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the high swap usage alarm.  Default is to create it (for backwards compatible support)"
+}
+
+variable "create_anomaly_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the fairly noisy anomaly alarm.  Default is to create it (for backwards compatible support), but recommended to disable this for non-production databases"
+}
+
 variable "anomaly_period" {
   type        = string
   default     = "600"
