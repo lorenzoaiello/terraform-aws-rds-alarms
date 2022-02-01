@@ -21,7 +21,7 @@ If the instance type is a T-Series instance type (automatically determind), the 
 - CPU Credit Balance below 100
 
 If the database engine is any of postgres type (configured with var.engine), then the following alarms are also created:
-- Maximum used transaction IDs over 1,000,000,000
+- Maximum used transaction IDs over 1,000,000,000 [[reference](https://aws.amazon.com/blogs/database/implement-an-early-warning-system-for-transaction-id-wraparound-in-amazon-rds-for-postgresql/)]
 
 **Estimated Operating Cost**: $ 1.00 / month
 
