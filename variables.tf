@@ -145,3 +145,15 @@ variable "db_instance_class" {
   type      = string
   description = "The rds instance class, e.g. db.t3.medium"
 }
+
+variable "engine" {
+  type = string
+  description = "The RDS engine being used. Used for postgres or mysql specific alarms"
+  default = ""
+}
+
+variable "maximum_used_transaction_ids_too_high_threshold" {
+  type        = string
+  default     = "1000000000" // 1 billion. Half of total.
+  description = "Alarm threshold for the 'maximumUsedTransactionIDs' alarm"
+}

@@ -61,3 +61,8 @@ output "alarm_connection_count_anomalous" {
   # value       = one(aws_cloudwatch_metric_alarm.connection_count_anomalous.*)
   description = "The CloudWatch Metric Alarm resource block for anomalous Connection Count"
 }
+
+output "alarm_maximum_used_transaction_ids_too_high" {
+  value       = aws_cloudwatch_metric_alarm.maximum_used_transaction_ids_too_high
+  description = "The CloudWatch Metric Alarm resource block for postgres' Transaction ID Wraparound"
+}
