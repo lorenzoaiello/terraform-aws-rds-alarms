@@ -43,13 +43,58 @@ resource "aws_db_instance" "default" {
   skip_final_snapshot  = "true"
 }
 
-module "aws-rds-alarms" {
-  source            = "lorenzoaiello/rds-alarms/aws"
-  version           = "x.y.z"
-  db_instance_id    = aws_db_instance.default.id
+resource "aws_sns_topic" "default" {
+  name_prefix = "my-premade-topic"
 }
 
+module "aws-rds-alarms" {
+  source         = "lorenzoaiello/rds-alarms/aws"
+  version        = "x.y.z"
+  db_instance_id = aws_db_instance.default.id
+  actions_alarm  = [aws_sns_topic.default.arn]
+  actions_ok     = [aws_sns_topic.default.arn]
+}
 ```
+
+This above can pair very nicely for example with an [module which creates an SNS topic which sends your alerts into Slack](https://github.com/terraform-aws-modules/terraform-aws-notify-slack).  For example:
+
+```hcl-terraform
+resource "aws_db_instance" "default" {
+  allocated_storage    = 10
+  storage_type         = "gp2"
+  engine               = "mysql"
+  engine_version       = "5.7"
+  instance_class       = "db.t2.micro"
+  identifier_prefix    = "rds-server-example"
+  name                 = "my-db"
+  username             = "foo"
+  password             = "bar"
+  parameter_group_name = "default.mysql5.7"
+  apply_immediately    = "true"
+  skip_final_snapshot  = "true"
+}
+
+module "notify_slack" {
+  source  = "terraform-aws-modules/notify-slack/aws"
+  version = "~> 4.0"
+
+  sns_topic_name = "slack-topic"
+
+  slack_webhook_url = "https://hooks.slack.com/services/AAA/BBB/CCC"
+  slack_channel     = "aws-notification"
+  slack_username    = "reporter"
+}
+
+module "aws-rds-alarms" {
+  source         = "lorenzoaiello/rds-alarms/aws"
+  version        = "x.y.z"
+  db_instance_id = aws_db_instance.default.id
+  actions_alarm  = [module.sns_to_slack.this_slack_topic_arn]
+  actions_ok     = [module.sns_to_slack.this_slack_topic_arn]
+}
+```
+
+
 
 ## Variables
 
