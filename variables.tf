@@ -69,6 +69,18 @@ variable "create_anomaly_alarm" {
   description = "Whether or not to create the fairly noisy anomaly alarm.  Default is to create it (for backwards compatible support), but recommended to disable this for non-production databases"
 }
 
+variable "create_read_iops_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the Read IOPS too high alarm. Default is to create it."
+}
+
+variable "create_write_iops_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the Write IOPS too high alarm. Default is to create it."
+}
+
 variable "anomaly_period" {
   type        = string
   default     = "600"
@@ -82,13 +94,13 @@ variable "anomaly_band_width" {
 }
 
 variable "actions_alarm" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "A list of actions to take when alarms are triggered. Will likely be an SNS topic for event distribution."
 }
 
 variable "actions_ok" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "A list of actions to take when alarms are cleared. Will likely be an SNS topic for event distribution."
 }
@@ -135,6 +147,18 @@ variable "memory_swap_usage_too_high_threshold" {
   description = "Alarm threshold for the 'highSwapUsage' alarm"
 }
 
+variable "read_iops_too_high_threshold" {
+  type        = string
+  default     = "100"
+  description = "Alarm threshold for the 'read-iops-too-high' alarm"
+}
+
+variable "write_iops_too_high_threshold" {
+  type        = string
+  default     = "10000"
+  description = "Alarm threshold for the 'write-iops-too-high' alarm"
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}
@@ -142,14 +166,14 @@ variable "tags" {
 }
 
 variable "db_instance_class" {
-  type      = string
+  type        = string
   description = "The rds instance class, e.g. db.t3.medium"
 }
 
 variable "engine" {
-  type = string
+  type        = string
   description = "The RDS engine being used. Used for postgres or mysql specific alarms"
-  default = ""
+  default     = ""
 }
 
 variable "maximum_used_transaction_ids_too_high_threshold" {
