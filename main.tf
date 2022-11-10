@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
 // CPU Utilization
 resource "aws_cloudwatch_metric_alarm" "cpu_utilization_too_high" {
   count               = var.create_high_cpu_alarm ? 1 : 0
