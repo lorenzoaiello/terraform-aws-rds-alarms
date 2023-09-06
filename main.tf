@@ -192,6 +192,10 @@ resource "aws_cloudwatch_metric_alarm" "maximum_used_transaction_ids_too_high" {
   alarm_description   = "Nearing a possible critical transaction ID wraparound."
   alarm_actions       = var.actions_alarm
   ok_actions          = var.actions_ok
+
+  dimensions = {
+    DBInstanceIdentifier = var.db_instance_id
+  }
 }
 
 # SOC2 requirements
@@ -210,7 +214,7 @@ resource "aws_cloudwatch_metric_alarm" "read_iops_too_high" {
   ok_actions          = var.actions_ok
 
   dimensions = {
-    DBInstanceIdentifier = "${var.db_instance_id}-read-iops-too-high"
+    DBInstanceIdentifier = var.db_instance_id
   }
 }
 
@@ -229,6 +233,6 @@ resource "aws_cloudwatch_metric_alarm" "write_iops_too_high" {
   ok_actions          = var.actions_ok
 
   dimensions = {
-    DBInstanceIdentifier = "${var.prefix}rds-${var.db_instance_id}-write-iops-too-high"
+    DBInstanceIdentifier = var.db_instance_id
   }
 }
