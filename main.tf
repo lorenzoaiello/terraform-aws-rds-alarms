@@ -108,6 +108,26 @@ resource "aws_cloudwatch_metric_alarm" "disk_burst_balance_too_low" {
   tags = var.tags
 }
 
+resource "aws_cloudwatch_metric_alarm" "storage_space_approaching_max" {
+  count               = var.create_storage_space_approaching_max_threshold_alarm ? 1 : 0
+  alarm_name          = "${var.prefix}rds-${var.db_instance_id}-storageSpaceApproachingMax"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.evaluation_period
+  metric_name         = "fileSys.used"
+  namespace           = "AWS/RDS"
+  period              = var.statistic_period
+  statistic           = "Average"
+  threshold           = var.storage_space_approaching_max_threshold
+  alarm_description   = "Used storage space is approaching the maximum allocation."
+  alarm_actions       = var.actions_alarm
+  ok_actions          = var.actions_ok
+
+  dimensions = {
+    DBInstanceIdentifier = var.db_instance_id
+  }
+  tags = var.tags
+}
+
 // Memory Utilization
 resource "aws_cloudwatch_metric_alarm" "memory_freeable_too_low" {
   count               = var.create_low_memory_alarm ? 1 : 0

@@ -51,6 +51,12 @@ variable "create_low_disk_burst_alarm" {
   description = "Whether or not to create the low disk burst alarm.  Default is to create it (for backwards compatible support)"
 }
 
+variable "create_storage_space_approaching_max_threshold_alarm" {
+  type        = bool
+  default     = false
+  description = "Whether or not to create the storage space approaching max threshold alarm. This requires RDS Enhanced Monitoring to be enabled"
+}
+
 variable "create_low_memory_alarm" {
   type        = bool
   default     = true
@@ -133,6 +139,11 @@ variable "disk_burst_balance_too_low_threshold" {
   type        = string
   default     = "100"
   description = "Alarm threshold for the 'lowEBSBurstBalance' alarm"
+}
+
+variable "storage_space_approaching_max_threshold" {
+  description = "Alarm threshold for the fileSys.used metric, above which the storage space approaching max alarm will trigger"
+  type        = number
 }
 
 variable "memory_freeable_too_low_threshold" {
