@@ -4,7 +4,9 @@ This Terraform module manages Cloudwatch Alarms for an RDS instance. It does NOT
 
 **Requires**:
 - AWS Provider
-- Terraform 0.12
+- Terraform 0.13 or higher
+
+If you need Terraform 0.12, you should use version `2.x` of this module and contribute changes to the `tf-0.12` branch.
 
 ## Alarms Created
 
