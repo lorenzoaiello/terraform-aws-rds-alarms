@@ -53,7 +53,7 @@ resource "aws_sns_topic" "default" {
 module "aws-rds-alarms" {
   source            = "lorenzoaiello/rds-alarms/aws"
   version           = "x.y.z"
-  db_instance_id    = aws_db_instance.default.id
+  db_instance_id    = aws_db_instance.default.identifier
   db_instance_class = "db.t2.micro"
   actions_alarm     = [aws_sns_topic.default.arn]
   actions_ok        = [aws_sns_topic.default.arn]
@@ -92,7 +92,7 @@ module "notify_slack" {
 module "aws-rds-alarms" {
   source            = "lorenzoaiello/rds-alarms/aws"
   version           = "x.y.z"
-  db_instance_id    = aws_db_instance.default.id
+  db_instance_id    = aws_db_instance.default.identifier
   db_instance_class = "db.t2.micro"
   actions_alarm     = [module.sns_to_slack.this_slack_topic_arn]
   actions_ok        = [module.sns_to_slack.this_slack_topic_arn]
