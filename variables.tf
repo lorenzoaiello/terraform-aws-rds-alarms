@@ -181,3 +181,14 @@ variable "maximum_used_transaction_ids_too_high_threshold" {
   default     = "1000000000" // 1 billion. Half of total.
   description = "Alarm threshold for the 'maximumUsedTransactionIDs' alarm"
 }
+
+variable "treat_missing_data" {
+  description = "Determines how the alarm will handle missing data"
+  type        = string
+  default     = "missing"
+
+  validation {
+    condition     = contains(["missing", "ignore", "breaching", "notBreaching"], var.treat_missing_data)
+    error_message = "The treat_missing_data variable must be one of: 'missing', 'ignore', 'breaching', 'notBreaching'."
+  }
+}
