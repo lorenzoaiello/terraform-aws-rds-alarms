@@ -38,7 +38,7 @@ resource "aws_db_instance" "default" {
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
   identifier_prefix    = "rds-server-example"
-  name                 = "my-db"
+  db_name               = "my-db"
   username             = "foo"
   password             = "bar"
   parameter_group_name = "default.mysql5.7"
@@ -51,11 +51,12 @@ resource "aws_sns_topic" "default" {
 }
 
 module "aws-rds-alarms" {
-  source         = "lorenzoaiello/rds-alarms/aws"
-  version        = "x.y.z"
-  db_instance_id = aws_db_instance.default.id
-  actions_alarm  = [aws_sns_topic.default.arn]
-  actions_ok     = [aws_sns_topic.default.arn]
+  source            = "lorenzoaiello/rds-alarms/aws"
+  version           = "x.y.z"
+  db_instance_id    = aws_db_instance.default.id
+  db_instance_class = "db.t2.micro"
+  actions_alarm     = [aws_sns_topic.default.arn]
+  actions_ok        = [aws_sns_topic.default.arn]
 }
 ```
 
@@ -69,7 +70,7 @@ resource "aws_db_instance" "default" {
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
   identifier_prefix    = "rds-server-example"
-  name                 = "my-db"
+  db_name              = "my-db"
   username             = "foo"
   password             = "bar"
   parameter_group_name = "default.mysql5.7"
@@ -89,11 +90,12 @@ module "notify_slack" {
 }
 
 module "aws-rds-alarms" {
-  source         = "lorenzoaiello/rds-alarms/aws"
-  version        = "x.y.z"
-  db_instance_id = aws_db_instance.default.id
-  actions_alarm  = [module.sns_to_slack.this_slack_topic_arn]
-  actions_ok     = [module.sns_to_slack.this_slack_topic_arn]
+  source            = "lorenzoaiello/rds-alarms/aws"
+  version           = "x.y.z"
+  db_instance_id    = aws_db_instance.default.id
+  db_instance_class = "db.t2.micro"
+  actions_alarm     = [module.sns_to_slack.this_slack_topic_arn]
+  actions_ok        = [module.sns_to_slack.this_slack_topic_arn]
 }
 ```
 
