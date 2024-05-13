@@ -240,3 +240,69 @@ resource "aws_cloudwatch_metric_alarm" "write_iops_too_high" {
     DBInstanceIdentifier = var.db_instance_id
   }
 }
+
+
+resource "aws_cloudwatch_metric_alarm" "trx_rseg_history_len" {
+  count               = var.create_write_iops_alarm ? 1 : 0
+  alarm_name          = "${var.prefix}rds-${var.db_instance_id}-trx-rseg-history-len-too-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.evaluation_period
+  threshold           = var.trx_rseg_history_len_too_high_threshold
+  alarm_description   = "Rseg History Length over last ${var.statistic_period} seconds too high, performance may suffer"
+
+  metric_query {
+    id          = "e1"
+    expression  = "DB_PERF_INSIGHTS('RDS', '${var.db_instance_resource_id}' , 'db.Transactions.trx_rseg_history_len.avg')"
+    label       = "db.Transactions.trx_rseg_history_len"
+    return_data = "true"
+    period      = var.statistic_period
+  }
+
+  alarm_actions = var.actions_alarm
+  ok_actions    = var.actions_ok
+}
+
+resource "aws_cloudwatch_metric_alarm" "innodb_row_lock_time" {
+  count               = var.create_innodb_row_lock_time_alarm ? 1 : 0
+  alarm_name          = "${var.prefix}rds-${var.db_instance_id}-innodb-row-lock-time-too-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.evaluation_period
+  threshold           = var.innodb_row_lock_time_too_high_threshold
+  alarm_description   = "Row Lock Time over last ${var.statistic_period} seconds too high, performance may suffer"
+
+  metric_query {
+    id          = "e1"
+    expression  = "DB_PERF_INSIGHTS('RDS', '${var.db_instance_resource_id}' , 'db.Locks.Innodb_row_lock_time.avg')"
+    label      = "db.Locks.Innodb_row_lock_time"
+    return_data = "true"
+    period      = var.statistic_period
+  }
+
+  alarm_actions = var.actions_alarm
+  ok_actions    = var.actions_ok
+}
+
+
+#db.Cache.innoDB_buffer_pool_hits.avg
+
+
+
+resource "aws_cloudwatch_metric_alarm" "innodb_buffer_pool_hits" {
+  count               = var.create_innodb_buffer_pool_hits_alarm ? 1 : 0
+  alarm_name          = "${var.prefix}rds-${var.db_instance_id}-innodb-buffer-pool-hits-too-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.evaluation_period
+  threshold           = var.innodb_buffer_pool_hits_too_high_threshold
+  alarm_description   = "Buffer Pool Hits over last ${var.statistic_period} seconds too high, performance may suffer"
+
+  metric_query {
+    id          = "e1"
+    expression  = "DB_PERF_INSIGHTS('RDS', '${var.db_instance_resource_id}' , 'db.Cache.innoDB_buffer_pool_hits.avg')"
+    label      = "db.Cache.innoDB_buffer_pool_hits"
+    return_data = "true"
+    period      = var.statistic_period
+  }
+
+  alarm_actions = var.actions_alarm
+  ok_actions    = var.actions_ok
+}

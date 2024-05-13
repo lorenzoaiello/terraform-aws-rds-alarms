@@ -3,6 +3,12 @@ variable "db_instance_id" {
   description = "RDS Instance ID"
 }
 
+variable "db_instance_resource_id" {
+  type        = string
+  default     = "db-abc12345"
+  description = "db_instance_resource_id"
+}
+
 variable "prefix" {
   type        = string
   default     = ""
@@ -79,6 +85,24 @@ variable "create_write_iops_alarm" {
   type        = bool
   default     = true
   description = "Whether or not to create the Write IOPS too high alarm. Default is to create it."
+}
+
+variable "create_trx_rseg_history_len_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the trx_rseg_history_len too high alarm. Default is to create it."
+}
+
+variable "create_innodb_row_lock_time_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the innodb_row_lock_time too high alarm. Default is to create it."
+}
+
+variable "create_innodb_buffer_pool_hits_alarm" {
+  type        = bool
+  default     = true
+  description = "Whether or not to create the innodb_buffer_pool_hits too high alarm. Default is to create it."
 }
 
 variable "anomaly_period" {
@@ -180,4 +204,22 @@ variable "maximum_used_transaction_ids_too_high_threshold" {
   type        = string
   default     = "1000000000" // 1 billion. Half of total.
   description = "Alarm threshold for the 'maximumUsedTransactionIDs' alarm"
+}
+
+variable "trx_rseg_history_len_too_high_threshold" {
+  type        = string
+  default     = "1000"
+  description = "Alarm threshold for the 'trx_rseg_history_len' alarm"
+}
+
+variable "innodb_row_lock_time_too_high_threshold" {
+  type        = string
+  default     = "2000"
+  description = "Alarm threshold for the 'innodb_row_lock_time' alarm"
+}
+
+variable "innodb_buffer_pool_hits_too_high_threshold" {
+  type        = string
+  default     = "10000"
+  description = "Alarm threshold for the 'innodb_row_lock_time' alarm"
 }
