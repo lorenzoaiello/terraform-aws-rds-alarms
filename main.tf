@@ -243,7 +243,7 @@ resource "aws_cloudwatch_metric_alarm" "write_iops_too_high" {
 
 
 resource "aws_cloudwatch_metric_alarm" "trx_rseg_history_len" {
-  count               = var.create_write_iops_alarm ? 1 : 0
+  count               = var.create_trx_rseg_history_len_alarm ? 1 : 0
   alarm_name          = "${var.prefix}rds-${var.db_instance_id}-trx-rseg-history-len-too-high"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.evaluation_period
