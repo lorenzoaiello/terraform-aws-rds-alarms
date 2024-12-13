@@ -87,6 +87,12 @@ variable "anomaly_period" {
   description = "The number of seconds that make each evaluation period for anomaly detection."
 }
 
+variable "anomaly_stat" {
+  type        = string
+  default     = "Average"
+  description = "Statistics used for anomaly detection, e.g. average, IQM, minimum."
+}
+
 variable "anomaly_band_width" {
   type        = string
   default     = "2"
