@@ -174,7 +174,7 @@ resource "aws_cloudwatch_metric_alarm" "connection_count_anomalous" {
       metric_name = "DatabaseConnections"
       namespace   = "AWS/RDS"
       period      = var.anomaly_period
-      stat        = "Average"
+      stat        = var.anomaly_stat
       unit        = "Count"
 
       dimensions = {
